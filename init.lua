@@ -138,6 +138,8 @@ vim.opt.scrolloff = 10
 -- [[ CUSTOM ]]
 
 vim.keymap.set('n', '<leader>b', '<cmd>bdelete<CR>', { desc = '[b] Delete current Buffer' })
+vim.keymap.set('n', ']b', '<cmd>bnext<CR>', { desc = 'Switch to next buffer' })
+vim.keymap.set('n', '[b', '<cmd>bprev<CR>', { desc = 'Switch to previous buffer' })
 
 -- [[ CUSTOM ]]
 
@@ -901,8 +903,26 @@ require('lazy').setup({
         return '%2l:%-2v'
       end
 
+      -- ---@diagnostic disable-next-line: duplicate-set-field
+      -- statusline.section_filename = function()
+      --   return ''
+      -- end
+
       -- ... and there is more!
       --  Check out: https://github.com/echasnovski/mini.nvim
+
+      -- [[ CUSTOM ]]
+
+      -- Show indentation guide lines
+      require('mini.indentscope').setup {
+        draw = {
+          ---@diagnostic disable-next-line: unused-local
+          animation = require('mini.indentscope').gen_animation.none(),
+        },
+      }
+
+      require('mini.tabline').setup()
+      -- [[ CUSTOM ]]
     end,
   },
   { -- Highlight, edit, and navigate code
