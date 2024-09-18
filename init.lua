@@ -137,9 +137,9 @@ vim.opt.scrolloff = 10
 
 -- [[ CUSTOM ]]
 
-vim.keymap.set('n', '<leader>b', '<cmd>bdelete<CR>', { desc = '[b] Delete current Buffer' })
-vim.keymap.set('n', ']b', '<cmd>bnext<CR>', { desc = 'Switch to next buffer' })
-vim.keymap.set('n', '[b', '<cmd>bprev<CR>', { desc = 'Switch to previous buffer' })
+vim.keymap.set('n', '<leader>b', '<cmd>bdelete<CR>', { desc = 'Delete current buffer' })
+vim.keymap.set('n', ']b', '<cmd>bnext<CR>', { desc = 'Next [b]uffer' })
+vim.keymap.set('n', '[b', '<cmd>bprev<CR>', { desc = 'Previous [b]uffer' })
 
 -- [[ CUSTOM ]]
 
