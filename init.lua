@@ -60,6 +60,17 @@ vim.g.have_nerd_font = true
 --         as the global value, "none" is the same as "".
 -- vim.opt.virtualedit = 'all'
 
+-- [[ Custom functions ]]
+-- Taken from: https://github.com/echasnovski/mini.trailspace/blob/3a328e62559c33014e422fb9ae97afc4208208b1/lua/mini/trailspace.lua#L115
+local Custom = {}
+
+Custom.trim_trailing_spaces = function()
+  local curpos = vim.api.nvim_win_get_cursor(0)
+  -- Search and replace trailing whitespace
+  vim.cmd [[keeppatterns %s/\s\+$//e]]
+  vim.api.nvim_win_set_cursor(0, curpos)
+end
+
 -- [[ CUSTOM ]]
 
 -- Make line numbers default
@@ -124,6 +135,12 @@ vim.opt.scrolloff = 10
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
+-- [[ CUSTOM ]]
+
+vim.keymap.set('n', '<leader>b', '<cmd>bdelete<CR>', { desc = '[b] Delete current Buffer' })
+
+-- [[ CUSTOM ]]
+
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
@@ -156,6 +173,17 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 
 -- [[ Basic Autocommands ]]
 --  See `:help lua-guide-autocommands`
+
+-- [[ CUSTOM ]]
+
+vim.api.nvim_create_autocmd('BufWritePre', {
+  pattern = '*',
+  callback = function()
+    Custom.trim_trailing_spaces()
+  end,
+})
+
+-- [[ CUSTOM ]]
 
 -- Highlight when yanking (copying) text
 --  Try it with `yap` in normal mode
