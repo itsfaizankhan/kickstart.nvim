@@ -178,10 +178,20 @@ vim.keymap.set('n', '<C-k>', '<C-w><C-k>', { desc = 'Move focus to the upper win
 
 -- [[ CUSTOM ]]
 
+-- Trim trailing spaces on save
 vim.api.nvim_create_autocmd('BufWritePre', {
   pattern = '*',
   callback = function()
     Custom.trim_trailing_spaces()
+  end,
+})
+
+-- Set tabstop and shiftwidth to 4 for Go files
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'go',
+  callback = function()
+    vim.opt_local.shiftwidth = 4
+    vim.opt_local.tabstop = 4
   end,
 })
 
@@ -607,7 +617,9 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         -- clangd = {},
-        -- gopls = {},
+        gopls = {
+          gofumpt = true,
+        },
         pylsp = {
           settings = {
             pylsp = {
@@ -913,15 +925,8 @@ require('lazy').setup({
 
       -- [[ CUSTOM ]]
 
-      -- Show indentation guide lines
-      require('mini.indentscope').setup {
-        draw = {
-          ---@diagnostic disable-next-line: unused-local
-          animation = require('mini.indentscope').gen_animation.none(),
-        },
-      }
-
       require('mini.tabline').setup()
+
       -- [[ CUSTOM ]]
     end,
   },
@@ -961,10 +966,10 @@ require('lazy').setup({
   --  Uncomment any of the lines below to enable them (you will need to restart nvim).
   --
   -- require 'kickstart.plugins.debug',
-  -- require 'kickstart.plugins.indent_line',
+  require 'kickstart.plugins.indent_line',
   -- require 'kickstart.plugins.lint',
   require 'kickstart.plugins.autopairs',
-  -- require 'kickstart.plugins.neo-tree',
+  require 'kickstart.plugins.neo-tree',
   -- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
