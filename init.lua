@@ -1030,35 +1030,77 @@ require('lazy').setup({
     'nvimdev/dashboard-nvim',
     event = 'VimEnter',
     config = function()
+      local dashboard_hyper = {
+        {
+          icon = ' ',
+          icon_hl = '@variable',
+          desc = 'Neovim config',
+          group = 'Label',
+          action = function()
+            require('telescope.builtin').find_files { cwd = vim.fn.stdpath 'config' }
+          end,
+          key = 'f',
+        },
+        {
+          desc = ' dotfiles',
+          group = 'Number',
+          action = 'Telescope file_browser cwd=~/dotfiles/',
+          key = 'd',
+        },
+        {
+          desc = '󰈔 New File',
+          group = 'Title',
+          action = 'enew',
+          key = 'n',
+        },
+        { desc = '󰊳 Update', group = '@property', action = 'Lazy update', key = 'u' },
+      }
+
+      local dashboard_doom = {
+        {
+          icon = ' ',
+          -- icon_hl = 'Title',
+          desc = 'Neovim Config           ',
+          -- desc_hl = 'String',
+          key = 'f',
+          -- keymap = '',
+          key_hl = 'Number',
+          key_format = ' %s',
+          action = function()
+            require('telescope.builtin').find_files { cwd = vim.fn.stdpath 'config' }
+          end,
+        },
+        {
+          icon = ' ',
+          desc = 'Browse Dotfiles',
+          key = 'd',
+          key_format = ' %s',
+          action = 'Telescope file_browser cwd=~/dotfiles/',
+        },
+        {
+          icon = '󰈔 ',
+          desc = 'New File',
+          key = 'n',
+          key_format = ' %s',
+          action = 'enew',
+        },
+        {
+          icon = '󰊳 ',
+          desc = 'Update',
+          key = 'u',
+          key_format = ' %s',
+          action = 'Lazy update',
+        },
+      }
+
       require('dashboard').setup {
         theme = 'hyper',
         config = {
           week_header = {
             enable = true,
           },
-          shortcut = {
-            { desc = '󰊳 Update', group = '@property', action = 'Lazy update', key = 'u' },
-            {
-              icon = ' ',
-              icon_hl = '@variable',
-              desc = 'Files',
-              group = 'Label',
-              action = 'Telescope find_files',
-              key = 'f',
-            },
-            {
-              desc = ' Apps',
-              group = 'DiagnosticHint',
-              action = 'Telescope app',
-              key = 'a',
-            },
-            {
-              desc = ' dotfiles',
-              group = 'Number',
-              action = 'Telescope file_browser cwd=~/dotfiles/',
-              key = 'd',
-            },
-          },
+          shortcut = dashboard_hyper,
+          center = dashboard_doom,
         },
         shortcut_type = 'number',
       }
