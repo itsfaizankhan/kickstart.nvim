@@ -629,6 +629,9 @@ require('lazy').setup({
       local servers = {
         -- clangd = {},
         gopls = {
+          analyzers = {
+            unusedvariable = true,
+          },
           gofumpt = true,
         },
         pylsp = {
