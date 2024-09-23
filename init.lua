@@ -135,11 +135,12 @@ vim.opt.scrolloff = 10
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
 
--- [[ CUSTOM ]]
+-- [[ CUSTOM Keymaps/Keybinds ]]
 
-vim.keymap.set('n', '<leader>b', '<cmd>bdelete<CR>', { desc = 'Delete current buffer' })
-vim.keymap.set('n', ']b', '<cmd>bnext<CR>', { desc = 'Next [b]uffer' })
-vim.keymap.set('n', '[b', '<cmd>bprev<CR>', { desc = 'Previous [b]uffer' })
+vim.keymap.set('n', '<space>bf', '<cmd>Telescope file_browser<CR>', { desc = 'Open Telescope [F]ile browser' })
+vim.keymap.set('n', '<leader>bb', '<cmd>bdelete<CR>', { desc = 'Delete current buffer' })
+vim.keymap.set('n', ']b', '<cmd>bnext<CR>', { desc = 'Next [B]uffer' })
+vim.keymap.set('n', '[b', '<cmd>bprev<CR>', { desc = 'Previous [B]uffer' })
 
 -- [[ CUSTOM ]]
 
@@ -357,6 +358,15 @@ require('lazy').setup({
       },
       { 'nvim-telescope/telescope-ui-select.nvim' },
 
+      -- [[ CUSTOM Add Telescope extensions ]]
+
+      {
+        'nvim-telescope/telescope-file-browser.nvim',
+        dependencies = { 'nvim-telescope/telescope.nvim', 'nvim-lua/plenary.nvim' },
+      },
+
+      -- [[ CUSTOM ]]
+
       -- Useful for getting pretty icons, but requires a Nerd Font.
       { 'nvim-tree/nvim-web-devicons', enabled = vim.g.have_nerd_font },
     },
@@ -396,12 +406,29 @@ require('lazy').setup({
           ['ui-select'] = {
             require('telescope.themes').get_dropdown(),
           },
+          -- [[ CUSTOM Telescope extensions config ]]
+
+          ['file_browser'] = {
+            theme = 'ivy',
+            -- hijack_netrw = true,
+            hidden = { file_browser = true, folder_browser = true },
+            follow_symlinks = true,
+            -- display_stat = { date = true, size = true, mode = true },
+          },
+
+          -- [[ CUSTOM ]]
         },
       }
 
       -- Enable Telescope extensions if they are installed
       pcall(require('telescope').load_extension, 'fzf')
       pcall(require('telescope').load_extension, 'ui-select')
+
+      -- [[ CUSTOM Enable Telescope extensions ]]
+
+      pcall(require('telescope').load_extension, 'file_browser')
+
+      -- [[ CUSTOM ]]
 
       -- See `:help telescope.builtin`
       local builtin = require 'telescope.builtin'
