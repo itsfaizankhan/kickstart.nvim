@@ -1044,7 +1044,7 @@ require('lazy').setup({
         {
           desc = ' dotfiles',
           group = 'Number',
-          action = 'Telescope file_browser cwd=~/dotfiles/',
+          action = 'Telescope file_browser cwd=~/dotfiles/ auto_depth=true',
           key = 'd',
         },
         {
@@ -1075,7 +1075,7 @@ require('lazy').setup({
           desc = 'Browse Dotfiles',
           key = 'd',
           key_format = ' %s',
-          action = 'Telescope file_browser cwd=~/dotfiles/',
+          action = 'Telescope file_browser cwd=~/dotfiles/ auto_depth=true',
         },
         {
           icon = '󰈔 ',
