@@ -452,12 +452,14 @@ require('lazy').setup({
 
       -- [[ CUSTOM Find existing buffers in normal mode - modified ]]
 
+      -- TODO: on_complete exits inster mode as soon as one character is written in searchbox.
+      -- It should not go back to normal mode unless <Esc> is pressed.
       vim.keymap.set('n', '<leader><leader>', function()
-        builtin.buffers { on_complete = {
-          function()
-            vim.cmd 'stopinsert'
-          end,
-        } }
+        builtin.buffers() -- { on_complete = {
+        --   function()
+        --     vim.cmd 'stopinsert'
+        --   end,
+        -- } }
       end, { desc = '[ ] Find existing buffers' })
 
       -- [[ CUSTOM ]]
