@@ -187,7 +187,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   end,
 })
 
--- Set tabstop and shiftwidth to 4 for Go files
+-- Set tabstop and shiftwidth for different filetypes.
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'go',
   callback = function()
@@ -1034,6 +1034,28 @@ require('lazy').setup({
   --  Uncomment the following line and add your plugins to `lua/custom/plugins/*.lua` to get going.
   --    For additional information, see `:help lazy.nvim-lazy.nvim-structuring-your-plugins`
   -- { import = 'custom.plugins' },
+
+  -- [[ CUSTOM better Markdown rendering in editor plugin ]]
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
+    -- dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.icons' }, -- if you use standalone mini plugins
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' }, -- if you prefer nvim-web-devicons
+    ---@module 'render-markdown'
+    ---@type render.md.UserConfig
+    opts = {
+      preset = 'obsidian',
+      render_modes = true,
+    },
+  },
+  -- [[ CUSTOM ]]
+
+  -- [[ CUSTOM Add undotree ]]
+  {
+    'mbbill/undotree',
+    vim.keymap.set('n', '<leader><F5>', '<CMD>UndotreeToggle<CR>', { desc = 'Toggle Undotree' }),
+  },
+  -- [[ CUSTOM ]]
 
   -- [[ CUSTOM Added dashboard plugin ]]
 
