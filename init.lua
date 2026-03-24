@@ -187,6 +187,15 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   end,
 })
 
+-- Disable indent lines in dashboard
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = 'dashboard',
+  callback = function()
+    vim.opt_local.list = false
+    vim.b.indent_blankline_enabled = false
+  end,
+})
+
 -- Set tabstop and shiftwidth for different filetypes.
 vim.api.nvim_create_autocmd('FileType', {
   pattern = 'go',
@@ -665,12 +674,12 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         -- clangd = {},
-        gopls = {
-          analyzers = {
-            unusedvariable = true,
-          },
-          gofumpt = true,
-        },
+        -- gopls = {
+        --   analyzers = {
+        --     unusedvariable = true,
+        --   },
+        --   gofumpt = true,
+        -- },
         pylsp = {
           settings = {
             pylsp = {
@@ -985,7 +994,7 @@ require('lazy').setup({
   { -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     build = ':TSUpdate',
-    main = 'nvim-treesitter.configs', -- Sets main module to use for opts
+    -- main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
       ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
